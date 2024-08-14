@@ -1,6 +1,5 @@
 import Fastify from "fastify";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 import connectDB from "./config/db.js";
 import chalk from "chalk";
 
@@ -17,18 +16,20 @@ const fastify = Fastify({
 // console.log(process.env.MONGO_URI);
 
 fastify.get("/", async (request, reply) => {
-  return { hello: "world" };
+  reply.send("Hello World!!!");
 });
 
 const start = async () => {
   try {
-    const port = process.env.PORT || 4000;
+    const port = process.env.PORT || 5000;
     await fastify.listen({ port: port });
-    fastify.log.info(
-      chalk.green(`Server running on port ${fastify.server.address().port}`)
+    console.log(
+      chalk.yellow.underline.bold(
+        `Server running on port ${fastify.server.address().port}`
+      )
     );
   } catch (err) {
-    fastify.log.error(chalk.red(err));
+    fastify.log.error(err);
     process.exit(1);
   }
 };
